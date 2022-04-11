@@ -1,0 +1,10 @@
+<app-navbar></app-navbar>
+
+<ion-content>
+  <app-spinner *ngIf="loading; else notLoading"></app-spinner>
+  <ng-template #notLoading>
+    <div>
+      {{lodge.name}}
+    </div>
+  </ng-template>
+</ion-content>

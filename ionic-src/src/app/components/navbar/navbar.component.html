@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-row>
+      <ion-title style="cursor: pointer;" [routerLink]="['/']">
+        Planinarski domovi
+      </ion-title>
+      <ion-button *ngIf="!isAuthenticated && showLoginAndRegister" class="ion-float-right ion-margin-end"
+        [routerLink]="['/login']">Prijava
+      </ion-button>
+
+      <ion-button *ngIf="!isAuthenticated && showLoginAndRegister" class="ion-float-right ion-margin-end"
+        [routerLink]="['/register']">
+        Registracija</ion-button>
+
+      <ion-button (click)="logout()" *ngIf="isAuthenticated" class="ion-float-right ion-margin-end">
+        Odjava</ion-button>
+    </ion-row>
+
+  </ion-toolbar>
+</ion-header>

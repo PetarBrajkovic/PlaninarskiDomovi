@@ -1,0 +1,15 @@
+<app-navbar></app-navbar>
+
+<ion-content [fullscreen]="true">
+  <app-spinner *ngIf="loading; else notLoading"></app-spinner>
+  <ng-template #notLoading>
+    <ion-grid>
+      <ion-row>
+        <ion-col sizeMd="4" size="12" *ngFor="let lodge of allLodges">
+          <app-lodge-card [routerLink]="['/lodge-info/', lodge._id]" [mountainLodge]="lodge"></app-lodge-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ng-template>
+
+</ion-content>
