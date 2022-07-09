@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-row>
-      <ion-title style="cursor: pointer;" [routerLink]="['/']">
+      <ion-title style="cursor: pointer;" (click)="backToHome()">
         Planinarski domovi
       </ion-title>
       <ion-button *ngIf="!isAuthenticated && showLoginAndRegister" class="ion-float-right ion-margin-end"
