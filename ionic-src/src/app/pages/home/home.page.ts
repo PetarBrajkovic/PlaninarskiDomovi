@@ -1,3 +1,4 @@
+import { PexelsService } from './../../services/pexels.service';
 import { MountainLodge } from './../../models/mountainLodge.model';
 import { LodgeService } from './../../services/lodge.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,9 +11,10 @@ import { Component, OnInit } from '@angular/core';
 export class HomePage implements OnInit {
 
   allLodges = Array<MountainLodge>();
+  lodgePhotos = Array();
   loading = false;
 
-  constructor(private lodgeService: LodgeService) { }
+  constructor(private lodgeService: LodgeService, private pexels: PexelsService) { }
 
   ngOnInit() {
     this.loading = true;
@@ -21,6 +23,12 @@ export class HomePage implements OnInit {
         this.allLodges = data.data;
       }
       this.loading = false;
+    });
+
+    this.pexels.getLodgePhotos().subscribe(data => {
+      if (data && data.photos) {
+        this.lodgePhotos = data.photos;
+      }
     });
   }
 

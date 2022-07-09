@@ -5,8 +5,9 @@
   <ng-template #notLoading>
     <ion-grid>
       <ion-row>
-        <ion-col sizeMd="4" size="12" *ngFor="let lodge of allLodges">
-          <app-lodge-card [routerLink]="['/lodge-info/', lodge._id]" [mountainLodge]="lodge"></app-lodge-card>
+        <ion-col sizeMd="4" size="12" *ngFor="let lodge of allLodges; let i=index">
+          <app-lodge-card [mountainLodgePhoto]="lodgePhotos[i]" [routerLink]="['/lodge-info/', lodge._id]"
+            [mountainLodge]="lodge"></app-lodge-card>
         </ion-col>
       </ion-row>
     </ion-grid>
