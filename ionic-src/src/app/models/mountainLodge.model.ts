@@ -7,5 +7,6 @@ export class MountainLodge {
   club: string;
   website: string;
   numberOfBeds: number;
-  description: string
+  description: string;
+  pictureUrl: string;
 }

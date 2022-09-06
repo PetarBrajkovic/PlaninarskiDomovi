@@ -1,5 +1,6 @@
 <ion-card class="ion-padding ">
-  <img class="ion-margin-bottom" *ngIf="mountainLodgePhoto" [src]="mountainLodgePhoto.src.landscape">
+  <img style="border-radius: 2%;" class="ion-margin-bottom" *ngIf="mountainLodge.pictureUrl"
+    [src]="mountainLodge.pictureUrl">
   <ion-title class="ion-text-center ion-margin-bottom">
     {{mountainLodge.name}}
   </ion-title>

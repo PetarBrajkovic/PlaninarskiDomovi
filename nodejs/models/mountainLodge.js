@@ -27,6 +27,9 @@ const MountainLodgeSchema = mongoose.Schema({
     },
     description: {
         type: String
+    },
+    pictureUrl: {
+        type: String
     }
 });
 
@@ -42,4 +45,8 @@ module.exports.getAllMountainLodges = function (callback) {
 
 module.exports.addMountainLodges = function (newMountainLodge, callback) {
     newMountainLodge.save(callback);
+}
+
+module.exports.updateMountainLodge = function (id, mountainLodge, callback) {
+    MountainLodge.findByIdAndUpdate(id, mountainLodge, callback);
 }

@@ -15,4 +15,8 @@ export class LodgeService {
   getMountainLodgeById(id) {
     return this.http.get<any>('http://localhost:3000/lodge/getLodge/' + id);
   }
+
+  updateLodge(id, pictureUrl) {
+    return this.http.put<any>('http://localhost:3000/lodge/updateLodge/' + id, { pictureUrl: pictureUrl })
+  }
 }

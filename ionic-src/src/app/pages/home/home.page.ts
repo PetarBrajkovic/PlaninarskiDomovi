@@ -24,12 +24,5 @@ export class HomePage implements OnInit {
       }
       this.loading = false;
     });
-
-    this.pexels.getLodgePhotos().subscribe(data => {
-      if (data && data.photos) {
-        this.lodgePhotos = data.photos;
-      }
-    });
   }
-
 }

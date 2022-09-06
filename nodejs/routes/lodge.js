@@ -42,4 +42,14 @@ router.get('/getLodge/:id', (req, res) => {
     });
 });
 
+router.put('/updateLodge/:id', (req, res) => {
+    MountainLodge.updateMountainLodge(req.params.id, req.body, (err, data) => {
+        if (err) {
+            res.json({ success: false, data: err });
+        } else {
+            res.json({ success: true, data: data });
+        }
+    });
+});
+
 module.exports = router;

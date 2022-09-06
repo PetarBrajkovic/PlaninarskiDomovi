@@ -11,9 +11,6 @@ export class LodgeCardComponent implements OnInit {
   @Input()
   mountainLodge: MountainLodge;
 
-  @Input()
-  mountainLodgePhoto: any;
-
   constructor() { }
 
   ngOnInit() { }

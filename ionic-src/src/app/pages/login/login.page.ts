@@ -2,9 +2,9 @@ import { AuthState } from './../../store/auth/auth.state';
 import { Login } from './../../store/auth/auth.actions';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
-import { AuthService } from './../../services/auth.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginPage implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private authService: AuthService,
+  constructor(private fb: FormBuilder, private navController: NavController,
     private router: Router, private store: Store) { }
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
     }
     this.store.dispatch(new Login(user)).subscribe(() => {
       if (this.store.selectSnapshot(AuthState.isAuthenticated)) {
-        this.router.navigate(['/']);
+        this.navController.navigateBack('/');
       }
     });
   }
