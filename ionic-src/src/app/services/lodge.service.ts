@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MountainLodge } from '../models/mountainLodge.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class LodgeService {
     return this.http.get<any>('http://localhost:3000/lodge/getLodge/' + id);
   }
 
-  updateLodge(id, pictureUrl) {
-    return this.http.put<any>('http://localhost:3000/lodge/updateLodge/' + id, { pictureUrl: pictureUrl })
+  updateLodge(id, lodge: MountainLodge) {
+    return this.http.put<any>('http://localhost:3000/lodge/updateLodge/' + id, { lodge: lodge });
   }
 }

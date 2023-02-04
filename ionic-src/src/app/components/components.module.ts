@@ -6,12 +6,14 @@ import { IonicModule } from '@ionic/angular';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { WeatherWidgetComponent } from './weather-widget/weather-widget.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     LodgeCardComponent,
     SpinnerComponent,
+    WeatherWidgetComponent,
     MapComponent
   ],
   imports: [
@@ -23,6 +25,7 @@ import { CommonModule } from '@angular/common';
     NavbarComponent,
     LodgeCardComponent,
     SpinnerComponent,
+    WeatherWidgetComponent,
     MapComponent
   ]
 })
