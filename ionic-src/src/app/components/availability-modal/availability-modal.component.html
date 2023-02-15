@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Dobrodošli</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button (click)="confirm()">Confirm</ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-margin-start">
+        <ion-datetime presentation="date" [value]="selectedDates" (ionChange)="handleChangle($event)" [multiple]="true"
+          [firstDayOfWeek]="1">
+        </ion-datetime>
+      </ion-col>
+      <ion-col>
+        <ion-row>
+          <ion-col>
+            <div> Datum dolaska: </div>
+            <div> {{startDate}} </div>
+          </ion-col>
+          <ion-col>
+            <div> Datum polaska: </div>
+            <div> {{endDate}} </div>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <div> Broj gostiju: <input type="number"> </div>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

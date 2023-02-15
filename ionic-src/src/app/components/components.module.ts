@@ -7,6 +7,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherWidgetComponent } from './weather-widget/weather-widget.component';
+import { AvailabilityModalComponent } from './availability-modal/availability-modal.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,19 +16,25 @@ import { WeatherWidgetComponent } from './weather-widget/weather-widget.componen
     LodgeCardComponent,
     SpinnerComponent,
     WeatherWidgetComponent,
-    MapComponent
+    MapComponent,
+    AvailabilityModalComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports: [
     NavbarComponent,
     LodgeCardComponent,
     SpinnerComponent,
     WeatherWidgetComponent,
-    MapComponent
+    MapComponent,
+    AvailabilityModalComponent
+  ],
+  providers: [
+    AvailabilityModalComponent
   ]
 })
 export class ComponentsModule { }
