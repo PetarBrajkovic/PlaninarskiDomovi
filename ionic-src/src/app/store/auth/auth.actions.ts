@@ -3,6 +3,7 @@ export interface AuthStateModel {
     token: string | null;
     username: string | null;
     role: Roles | null;
+    userId: number | null;
 }
 
 export class Login {

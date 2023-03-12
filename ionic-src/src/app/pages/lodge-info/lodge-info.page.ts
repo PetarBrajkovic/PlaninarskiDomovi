@@ -33,6 +33,9 @@ export class LodgeInfoPage implements OnInit {
   async openAvailabilityModal() {
     const modal = await this.modalCtrl.create({
       component: AvailabilityModalComponent,
+      componentProps: {
+        mountainLodgeId: this.lodge._id
+      }
     });
     modal.present();
 

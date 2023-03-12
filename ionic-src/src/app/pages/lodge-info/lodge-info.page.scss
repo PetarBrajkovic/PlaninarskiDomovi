@@ -1,0 +1,21 @@
+.lodge-info {
+    align-items: baseline;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
+
+.map-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.question-area {
+    margin: 20px;
+    display: flex;
+    height: 200px;
+    align-items: center;
+    flex-direction: column;
+}

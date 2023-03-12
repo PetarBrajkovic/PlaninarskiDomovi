@@ -20,16 +20,19 @@
       <ion-col>
         <ion-row>
           <ion-col>
-            <div> Datum dolaska: </div>
+            <div> Datum polaska: </div>
             <div> {{startDate}} </div>
           </ion-col>
           <ion-col>
-            <div> Datum polaska: </div>
+            <div> Datum odlaska: </div>
             <div> {{endDate}} </div>
           </ion-col>
         </ion-row>
         <ion-row class="ion-margin-top">
-          <div> Broj gostiju: <input type="number"> </div>
+          <div> Broj gostiju: <input [(ngModel)]="numberOfGuests" type="number"> </div>
+        </ion-row>
+        <ion-row class="ion-margin-top">
+          <ion-button (click)="checkAvailability()">Proveri dostupnost</ion-button>
         </ion-row>
       </ion-col>
     </ion-row>

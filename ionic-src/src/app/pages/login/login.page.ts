@@ -1,7 +1,6 @@
 import { AuthState } from './../../store/auth/auth.state';
 import { Login } from './../../store/auth/auth.actions';
 import { Store } from '@ngxs/store';
-import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
@@ -15,8 +14,7 @@ export class LoginPage implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private navController: NavController,
-    private router: Router, private store: Store) { }
+  constructor(private fb: FormBuilder, private navController: NavController, private store: Store) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({

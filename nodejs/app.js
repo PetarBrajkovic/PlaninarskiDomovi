@@ -20,6 +20,7 @@ const app = express();
 
 const users = require('./routes/users');
 const lodge = require('./routes/lodge');
+const reservation = require('./routes/reservation');
 
 const port = 3000;
 
@@ -36,6 +37,7 @@ require('./config/passport')(passport);
 
 app.use('/users', users);
 app.use('/lodge', lodge);
+app.use('/reservation', reservation);
 
 app.get('/', (req, res) => {
     res.send('INVALID ENDPOINT');

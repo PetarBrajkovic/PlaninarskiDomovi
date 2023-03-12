@@ -9,7 +9,7 @@
           <h2> {{lodge.name}} </h2>
           <img style="border-radius: 2%;" [src]="lodge.pictureUrl">
         </ion-col>
-        <ion-col size="6">
+        <ion-col class="lodge-info" size="6">
           <div style="padding: 8px;">Planina: {{lodge.mountain}}</div>
           <div style="padding: 8px;">Visina: {{lodge.height}}m</div>
           <div style="padding: 8px;">Opis: {{lodge.description}}</div>
@@ -21,6 +21,13 @@
       </ion-row>
     </ion-grid>
   </ng-template>
-  <!-- <app-weather-widget></app-weather-widget> -->
-  <!-- <app-map></app-map> -->
+  <div class='map-info'>
+    <app-map></app-map>
+    <app-weather-widget></app-weather-widget>
+  </div>
+  <div class="question-area">
+    <h3>Ako imate dodatna pitanja</h3>
+    <textarea style="width: 60%; height: 100%;"></textarea>
+    <ion-button>Pošalji</ion-button>
+  </div>
 </ion-content>

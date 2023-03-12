@@ -2,15 +2,18 @@ const mongoose = require('mongoose');
 
 
 const ReservationSchema = new mongoose.Schema({
-    mountainLodge: {
+    mountainLodgeId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'MountainLodge'
     },
-    user: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
     numberOfNights: {
+        type: Number
+    },
+    numberOfGuests: {
         type: Number
     },
     startDate: {
@@ -21,7 +24,7 @@ const ReservationSchema = new mongoose.Schema({
     }
 });
 
-ReservationSchema.index({ mountainLodge: 1, startDate: 1, endDate: 1 }, { unique: true });
+ReservationSchema.index({ mountainLodgeId: 1, startDate: 1, endDate: 1 }, { unique: true });
 
 const Reservation = module.exports = mongoose.model('Reservation', ReservationSchema);
 
@@ -30,7 +33,7 @@ module.exports.getReservationById = function (id, callback) {
 }
 
 module.exports.getReservationsByMountainLodgeId = function (id, callback) {
-    Reservation.find({ mountainLodge: id }, callback);
+    Reservation.find({ mountainLodgeId: id }, callback);
 }
 
 module.exports.addReservation = function (newReservation, callback) {

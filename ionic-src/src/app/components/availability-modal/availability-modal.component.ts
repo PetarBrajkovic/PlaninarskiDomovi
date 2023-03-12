@@ -1,5 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Store } from '@ngxs/store';
+import { Reservation } from 'src/app/models/reservation.mode';
+import { ReservationService } from 'src/app/services/reservation.service';
+import { AuthState } from 'src/app/store/auth/auth.state';
 
 @Component({
   selector: 'app-availability-modal',
@@ -9,21 +13,22 @@ import { ModalController } from '@ionic/angular';
 })
 export class AvailabilityModalComponent implements OnInit {
 
+  @Input()
+  mountainLodgeId: number;
+
   startDate;
   endDate;
   selectedDates = null;
+  numberOfGuests: number;
 
-  constructor(private modalCtrl: ModalController, private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private modalCtrl: ModalController, private reservationService: ReservationService,
+    private store: Store) { }
 
   ngOnInit() { }
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
   }
-
-  // confirm() {
-  //   return this.modalCtrl.dismiss(null, 'confirm');
-  // }
 
   handleChangle(val) {
     if (!this.selectedDates && !!val.detail.value) {
@@ -41,9 +46,12 @@ export class AvailabilityModalComponent implements OnInit {
         this.endDate = val.detail.value[1];
         const startDateFormat = new Date(this.startDate);
         const endDateFormat = new Date(this.endDate);
-        this.selectedDates = (startDateFormat < endDateFormat) ?
-          this.getDates(startDateFormat, endDateFormat) :
-          this.getDates(endDateFormat, startDateFormat);
+        if (startDateFormat < endDateFormat) {
+          this.selectedDates = this.getDates(startDateFormat, endDateFormat);
+        } else {
+          this.selectedDates = this.getDates(endDateFormat, startDateFormat);
+          [this.startDate, this.endDate] = [this.endDate, this.startDate];
+        }
       }
     } else {
       this.selectedDates = null;
@@ -60,9 +68,30 @@ export class AvailabilityModalComponent implements OnInit {
     return dateArray;
   }
 
-  addDays(days) {
-    const date = new Date
+  checkAvailability() {
+    const reservation: Reservation = {
+      _id: null,
+      mountainLodgeId: this.mountainLodgeId,
+      userId: this.getUserId(),
+      numberOfNights: this.getNumberOfNights(this.startDate, this.endDate),
+      numberOfGuests: this.numberOfGuests,
+      startDate: this.startDate,
+      endDate: this.endDate
+    }
+    this.reservationService.createNewReservation(reservation).subscribe(data => {
+      console.log(data);
+    });
   }
 
+  getNumberOfNights(startDate, endDate) {
+    const date1 = new Date(startDate);
+    const date2 = new Date(endDate);
+    const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    return Math.ceil(timeDiff / (1000 * 3600 * 24));
+  }
+
+  getUserId() {
+    return this.store.selectSnapshot(AuthState.getUserId);
+  }
 
 }
