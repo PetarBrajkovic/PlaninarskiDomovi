@@ -1,0 +1,34 @@
+<app-navbar [showLoginAndRegister]="false"></app-navbar>
+
+<ion-content>
+  <ion-grid style="height: 100%;">
+    <ion-row class="ion-justify-content-center ion-align-items-center" style="height: 100%">
+      <ion-card>
+        <form class="ion-padding" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+          <ion-list style="display: flex; flex-direction: column;">
+            <ion-item>
+              <ion-input class="ion-text-center" formControlName="name" placeholder="Ime kluba:"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input class="ion-text-center" formControlName="email" placeholder="Email adresa:">
+              </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input class="ion-text-center" formControlName="username" placeholder="Korisničko ime:"> </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input class="ion-text-center" formControlName="password" placeholder="Lozinka:">
+              </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input class="ion-text-center" formControlName="confirmPassword" placeholder="Potvrdite lozinku:">
+              </ion-input>
+            </ion-item>
+            <ion-button fill="clear" class="ion-margin-top" type="submit">
+              Registracija</ion-button>
+          </ion-list>
+        </form>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+</ion-content>

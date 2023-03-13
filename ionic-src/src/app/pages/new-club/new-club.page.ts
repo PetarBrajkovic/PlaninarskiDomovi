@@ -1,15 +1,15 @@
-import { Roles } from './../../models/user.model';
-import { Router } from '@angular/router';
-import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Roles } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  selector: 'app-new-club',
+  templateUrl: './new-club.page.html',
+  styleUrls: ['./new-club.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class NewClubPage implements OnInit {
 
   myForm: FormGroup;
 
@@ -34,12 +34,12 @@ export class RegisterPage implements OnInit {
         name: form.value.name,
         email: form.value.email,
         password: form.value.password,
-        role: Roles.USER
+        role: Roles.MANAGER
       }
       this.authService.registerUser(user).subscribe(data => {
         if (data && data.success) {
           alert('Uspešna registracija');
-          this.router.navigate(['/login']);
+          this.router.navigate(['/']);
         }
       });
     }

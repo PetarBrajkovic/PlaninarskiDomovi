@@ -10,14 +10,16 @@ router.post('/add', (req, res, next) => {
         contact: req.body.contact,
         website: req.body.website,
         numberOfBeds: req.body.numberOfBeds,
-        description: req.body.description
+        description: req.body.description,
+        club: req.body.club,
+        pictureUrl: req.body.pictureUrl
     });
 
     MountainLodge.addMountainLodges(newMountainLodge, (err, user) => {
         if (err) {
             res.json({ success: false, msg: err });
         } else {
-            res.json({ success: true, msg: 'User registered' });
+            res.json({ success: true, msg: 'New mountain lodge added' });
         }
     });
 });

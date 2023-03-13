@@ -53,3 +53,8 @@ module.exports.comparePassword = function (canditatePassword, hash, callback) {
         callback(null, isMatch);
     });
 }
+
+module.exports.getAllClubs = function (callback) {
+    const query = { role: 'MANAGER' };
+    User.find(query, callback);
+}

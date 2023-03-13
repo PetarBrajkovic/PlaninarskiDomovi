@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class HomePage implements OnInit {
 
   allLodges = Array<MountainLodge>();
-  lodgePhotos = Array();
+  lodgePhotos = [];
   loading = false;
 
   constructor(private lodgeService: LodgeService, private pexels: PexelsService) { }

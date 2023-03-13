@@ -64,4 +64,14 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), (req, r
     res.json({ user: req.user });
 });
 
+router.get('/clubs', (req, res) => {
+    User.getAllClubs((err, allLodges) => {
+        if (err) {
+            res.json({ success: false, data: err });
+        } else {
+            res.json({ success: true, data: allLodges });
+        }
+    });
+});
+
 module.exports = router;

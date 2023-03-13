@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MountainLodge } from '../models/mountainLodge.model';
 
@@ -19,5 +19,10 @@ export class LodgeService {
 
   updateLodge(id, lodge: MountainLodge) {
     return this.http.put<any>('http://localhost:3000/lodge/updateLodge/' + id, { lodge: lodge });
+  }
+
+  addNewLodge(lodge: any) {
+    const headerOptions = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post<any>('http://localhost:3000/lodge/add', lodge, { headers: headerOptions });
   }
 }

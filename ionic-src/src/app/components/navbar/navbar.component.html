@@ -4,8 +4,11 @@
       <ion-title style="cursor: pointer; width: 25%;" (click)="backToHome()">
         Planinarski domovi
       </ion-title>
-      <ion-button *ngIf="showNewLodgeButton()" class="ion-float-center">
+      <ion-button [routerLink]="['/new-lodge']" *ngIf="showNewClubeAndLodgeButton()" class="ion-float-center">
         Dodaj planinarski dom
+      </ion-button>
+      <ion-button [routerLink]="['/new-club']" *ngIf="showNewClubeAndLodgeButton()" class="ion-float-center">
+        Dodaj klub
       </ion-button>
       <ion-button *ngIf="!isAuthenticated && showLoginAndRegister" class="ion-float-right ion-margin-end"
         [routerLink]="['/login']">Prijava

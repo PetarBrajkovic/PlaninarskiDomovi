@@ -22,4 +22,8 @@ export class AuthService {
     return this.http.get<any>('http://localhost:3000/users/profile');
   }
 
+  getAllClubs() {
+    return this.http.get<any>('http://localhost:3000/users/clubs');
+  }
+
 }

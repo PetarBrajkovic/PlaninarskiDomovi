@@ -17,8 +17,8 @@ export class NavbarComponent implements OnInit {
   showLoginAndRegister = true;
 
   @Select(AuthState.isAuthenticated) auth$: Observable<boolean>;
-
   @Select(AuthState.role) role$: Observable<null | Roles>;
+
   isAuthenticated: boolean
   role: null | Roles
 
@@ -37,7 +37,7 @@ export class NavbarComponent implements OnInit {
     this.navController.navigateBack('/');
   }
 
-  showNewLodgeButton() {
+  showNewClubeAndLodgeButton() {
     return this.isAuthenticated && (this.role === Roles.COMMISSION || this.role === Roles.ADMIN);
   }
 
