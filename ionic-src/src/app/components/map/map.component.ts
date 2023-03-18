@@ -1,15 +1,14 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, NgZone, OnInit, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Feature } from 'ol';
+import { Feature, Overlay } from 'ol';
 import { Point } from 'ol/geom';
-import { fromLonLat } from 'ol/proj';
+import { fromLonLat, toLonLat } from 'ol/proj';
 import { Icon, Style } from 'ol/style';
-import { Size } from 'ol/size';
 
 @Component({
   selector: 'app-map',
@@ -19,10 +18,31 @@ import { Size } from 'ol/size';
 })
 export class MapComponent implements AfterViewInit {
 
-  map: Map;
-  @Output() mapReady = new EventEmitter<Map>();
+  @Input()
+  mapForEdit = false;
 
-  center = fromLonLat([21.9033, 43.3247]);
+  map: Map;
+  @Output() coordinatesSelected = new EventEmitter<number[]>();
+
+  _coordinates: number[];
+
+  @Input()
+  public get coordinates(): number[] {
+    return this._coordinates;
+  }
+
+  public set coordinates(val: number[]) {
+    this._coordinates = val;
+    if (val && val.length > 0 && this.map) {
+      const coordForMap = fromLonLat(this.coordinates);
+      const vectorLayer = this.drawPin(coordForMap);
+      this.map.addLayer(vectorLayer);
+      this.map.getView().setCenter(coordForMap);
+      this.map.render();
+    }
+  }
+
+  center;
 
   constructor(private zone: NgZone) { }
 
@@ -30,12 +50,53 @@ export class MapComponent implements AfterViewInit {
     if (!this.map) {
       this.zone.runOutsideAngular(() => this.initMap())
     }
-    setTimeout(() => this.mapReady.emit(this.map));
+    if (this.mapForEdit) {
+      this.prepareForEdit();
+    }
   }
 
   initMap() {
+    const rasterLayer = new TileLayer({
+      source: new XYZ({
+        url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      })
+    });
+
+    this.map = new Map({
+      target: 'map',
+      layers: [rasterLayer],
+      view: new View({
+        center: fromLonLat([21.9033, 43.3247]),
+        zoom: 7
+      })
+    });
+
+    setTimeout(() => {
+      this.map.updateSize();
+    }, 300);
+  }
+
+  prepareForEdit() {
+    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    const that = this;
+    this.map.on('click', function (evt) {
+      const pos = toLonLat([evt.coordinate[0], evt.coordinate[1]]);
+      that.coordinatesSelected.emit(Array.from(pos));
+      const marker_el = document.getElementById('marker');
+      marker_el.hidden = false;
+      const marker = new Overlay({
+        position: evt.coordinate,
+        positioning: 'center-center',
+        element: marker_el,
+        stopEvent: false,
+      });
+      evt.map.addOverlay(marker);
+    });
+  }
+
+  drawPin(coordinates) {
     const iconFeature = new Feature({
-      geometry: new Point(this.center),
+      geometry: new Point(coordinates),
     });
 
     const iconStyle = new Style({
@@ -56,24 +117,7 @@ export class MapComponent implements AfterViewInit {
       source: vectorSource,
     });
 
-    const rasterLayer = new TileLayer({
-      source: new XYZ({
-        url: 'https://{a-c}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-      })
-    });
-
-    this.map = new Map({
-      target: 'map',
-      layers: [rasterLayer, vectorLayer],
-      view: new View({
-        center: this.center,
-        zoom: 7
-      })
-    });
-
-    setTimeout(() => {
-      this.map.updateSize();
-    }, 500);
+    return vectorLayer;
   }
 
 }

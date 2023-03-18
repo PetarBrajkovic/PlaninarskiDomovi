@@ -43,4 +43,7 @@
       </ion-button>
     </ion-col>
   </ion-row>
+  <ion-row>
+    <app-map (coordinatesSelected)="handleCoordinatesSelected($event)" [mapForEdit]="true"></app-map>
+  </ion-row>
 </ion-content>

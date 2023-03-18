@@ -12,7 +12,8 @@ router.post('/add', (req, res, next) => {
         numberOfBeds: req.body.numberOfBeds,
         description: req.body.description,
         club: req.body.club,
-        pictureUrl: req.body.pictureUrl
+        pictureUrl: req.body.pictureUrl,
+        coordinates: req.body.coordinates
     });
 
     MountainLodge.addMountainLodges(newMountainLodge, (err, user) => {

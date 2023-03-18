@@ -27,6 +27,7 @@ export class NewLodgePage implements OnInit {
   myForm: FormGroup;
 
   clubs: User[];
+  coordinates: number[];
 
   constructor(private fb: FormBuilder, private lodgeService: LodgeService,
     private router: Router, private authService: AuthService) { }
@@ -55,7 +56,8 @@ export class NewLodgePage implements OnInit {
       numberOfBeds: form.value.numberOfBeds,
       description: form.value.description,
       pictureUrl: this.uploadedFileUrl,
-      club: form.value.club._id
+      club: form.value.club._id,
+      coordinates: this.coordinates
     }
     this.lodgeService.addNewLodge(newLodge).subscribe(data => {
       if (data && data.success) {
@@ -67,6 +69,10 @@ export class NewLodgePage implements OnInit {
 
   populateClubs() {
     this.authService.getAllClubs().subscribe(res => this.clubs = res.data);
+  }
+
+  handleCoordinatesSelected(ev) {
+    this.coordinates = ev;
   }
 
 }

@@ -9,4 +9,5 @@ export class MountainLodge {
   numberOfBeds: number | null;
   description: string | null;
   pictureUrl: string | null;
+  coordinates: [number] | null;
 }

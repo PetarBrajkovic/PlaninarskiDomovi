@@ -28,6 +28,9 @@ const MountainLodgeSchema = mongoose.Schema({
     },
     pictureUrl: {
         type: String
+    },
+    coordinates: {
+        type: [Number]
     }
 });
 

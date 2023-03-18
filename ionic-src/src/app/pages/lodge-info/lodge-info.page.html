@@ -22,7 +22,7 @@
     </ion-grid>
   </ng-template>
   <div class='map-info'>
-    <app-map></app-map>
+    <app-map [coordinates]="lodge?.coordinates"></app-map>
     <app-weather-widget></app-weather-widget>
   </div>
   <div class="question-area">
