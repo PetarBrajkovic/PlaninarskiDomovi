@@ -1,6 +1,6 @@
 import { MountainLodge } from './../../models/mountainLodge.model';
 import { LodgeService } from './../../services/lodge.service';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { AvailabilityModalComponent } from 'src/app/components/availability-modal/availability-modal.component';
@@ -40,6 +40,10 @@ export class LodgeInfoPage implements OnInit {
     modal.present();
 
     // const { data, role } = await modal.onWillDismiss();
+  }
+
+  goToEdit() {
+    window.location.href = 'edit-lodge/' + this.lodge._id;
   }
 
 }

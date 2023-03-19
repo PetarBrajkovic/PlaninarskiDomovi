@@ -46,7 +46,7 @@ router.get('/getLodge/:id', (req, res) => {
 });
 
 router.put('/updateLodge/:id', (req, res) => {
-    MountainLodge.updateMountainLodge(req.params.id, req.body, (err, data) => {
+    MountainLodge.updateMountainLodge(req.params.id, req.body.lodge, (err, data) => {
         if (err) {
             res.json({ success: false, data: err });
         } else {

@@ -42,6 +42,10 @@ ion-modal {
 // }
 
 ion-modal ion-toolbar {
-    --background: rgb(14 116 144);
+    --background: #D8F9DA;
     --color: white;
+}
+
+:root {
+    --ion-color-primary: #304674;
 }

@@ -23,13 +23,18 @@ const routes: Routes = [
   {
     path: 'lodge-info/:lodgeId',
     loadChildren: () => import('./pages/lodge-info/lodge-info.module').then(m => m.LodgeInfoPageModule)
-  },  {
+  },
+  {
     path: 'new-lodge',
-    loadChildren: () => import('./pages/new-lodge/new-lodge.module').then( m => m.NewLodgePageModule)
+    loadChildren: () => import('./pages/new-lodge/new-lodge.module').then(m => m.NewLodgePageModule)
   },
   {
     path: 'new-club',
-    loadChildren: () => import('./pages/new-club/new-club.module').then( m => m.NewClubPageModule)
+    loadChildren: () => import('./pages/new-club/new-club.module').then(m => m.NewClubPageModule)
+  },
+  {
+    path: 'edit-lodge/:lodgeId',
+    loadChildren: () => import('./pages/edit-lodge/edit-lodge.module').then(m => m.EditLodgePageModule)
   },
 
 ];

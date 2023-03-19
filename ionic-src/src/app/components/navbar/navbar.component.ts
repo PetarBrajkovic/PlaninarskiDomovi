@@ -22,6 +22,8 @@ export class NavbarComponent implements OnInit {
   isAuthenticated: boolean
   role: null | Roles
 
+  labelForNewUser = '';
+
   constructor(private store: Store, private navController: NavController) { }
 
   ngOnInit() {
@@ -37,8 +39,17 @@ export class NavbarComponent implements OnInit {
     this.navController.navigateBack('/');
   }
 
-  showNewClubeAndLodgeButton() {
+  showNewClubAndLodgeButton() {
     return this.isAuthenticated && (this.role === Roles.COMMISSION || this.role === Roles.ADMIN);
+  }
+
+  getLabel() {
+    if (this.role === 'ADMIN') return 'Dodaj korisnika';
+    if (this.role === 'COMMISSION') return 'Dodaj klub';
+  }
+
+  goToNewLodge() {
+    window.location.href = '/new-lodge';
   }
 
 }

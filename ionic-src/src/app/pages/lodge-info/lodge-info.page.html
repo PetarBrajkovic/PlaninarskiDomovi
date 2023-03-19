@@ -6,7 +6,10 @@
     <ion-grid>
       <ion-row>
         <ion-col size="6">
-          <h2> {{lodge.name}} </h2>
+          <ion-row class="ion-align-items-center">
+            <h2 class="ion-margin-end"> {{lodge.name}} </h2>
+            <ion-icon (click)="goToEdit()" style="cursor: pointer;" name="create-outline" size="large"></ion-icon>
+          </ion-row>
           <img style="border-radius: 2%;" [src]="lodge.pictureUrl">
         </ion-col>
         <ion-col class="lodge-info" size="6">

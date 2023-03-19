@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, NgZone, Output } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, EventEmitter, Input, NgZone, OnDestroy, Output } from '@angular/core';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
@@ -16,7 +16,7 @@ import { Icon, Style } from 'ol/style';
   styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements AfterViewInit, OnDestroy {
 
   @Input()
   mapForEdit = false;
@@ -25,6 +25,7 @@ export class MapComponent implements AfterViewInit {
   @Output() coordinatesSelected = new EventEmitter<number[]>();
 
   _coordinates: number[];
+  pinLayer;
 
   @Input()
   public get coordinates(): number[] {
@@ -35,8 +36,8 @@ export class MapComponent implements AfterViewInit {
     this._coordinates = val;
     if (val && val.length > 0 && this.map) {
       const coordForMap = fromLonLat(this.coordinates);
-      const vectorLayer = this.drawPin(coordForMap);
-      this.map.addLayer(vectorLayer);
+      this.pinLayer = this.drawPin(coordForMap);
+      this.map.addLayer(this.pinLayer);
       this.map.getView().setCenter(coordForMap);
       this.map.render();
     }
@@ -53,6 +54,11 @@ export class MapComponent implements AfterViewInit {
     if (this.mapForEdit) {
       this.prepareForEdit();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.map.setTarget(null);
+    this.map = null;
   }
 
   initMap() {
@@ -80,6 +86,9 @@ export class MapComponent implements AfterViewInit {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const that = this;
     this.map.on('click', function (evt) {
+      if (that.pinLayer) {
+        evt.map.removeLayer(that.pinLayer);
+      }
       const pos = toLonLat([evt.coordinate[0], evt.coordinate[1]]);
       that.coordinatesSelected.emit(Array.from(pos));
       const marker_el = document.getElementById('marker');
