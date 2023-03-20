@@ -1,46 +1,56 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-weather-widget',
   templateUrl: './weather-widget.component.html',
   styleUrls: ['./weather-widget.component.scss'],
 })
-export class WeatherWidgetComponent implements OnInit {
+export class WeatherWidgetComponent {
 
-  weatherData: any;
-  constructor() { }
+  private _coordinates;
 
-  ngOnInit() {
-    this.weatherData = {
-      main: {},
-      isDay: true
-    };
-    this.getWeatherData();
-    // console.log(this.weatherData);
+  @Input()
+  public get coordinates(): number[] {
+    return this._coordinates;
   }
 
-  getWeatherData() {
-    // fetch('https://api.openweathermap.org/data/2.5/weather?q=niš&appid=ff1bc4683fc7325e9c57e586c20cc03e')
-    //   .then(response => response.json())
-    //   .then(data => { this.setWeatherData(data); })
+  public set coordinates(val: number[]) {
+    this._coordinates = val;
+    if (val && val.length > 0) {
+      this.getWeatherData();
+    }
+  }
+  weatherData: any;
+  iconUrl = 'https://openweathermap.org/img/wn/{icon}@2x.png';
 
-    // let data = JSON.parse('{"coord":{"lon":72.85,"lat":19.01},"weather":[{"id":721,"main":"Haze","description":"haze","icon":"50n"}],"base":"stations","main":{"temp":297.15,"feels_like":297.4,"temp_min":297.15,"temp_max":297.15,"pressure":1013,"humidity":69},"visibility":3500,"wind":{"speed":3.6,"deg":300},"clouds":{"all":20},"dt":1580141589,"sys":{"type":1,"id":9052,"country":"IN","sunrise":1580089441,"sunset":1580129884},"timezone":19800,"id":1275339,"name":"Mumbai","cod":200}');
-    // this.setWeatherData(data);
+  getWeatherData() {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${this.coordinates[1]}&lon=${this.coordinates[0]}&appid=ff1bc4683fc7325e9c57e586c20cc03e`)
+      .then(response => response.json())
+      .then(data => { this.setWeatherData(data); })
   }
 
   setWeatherData(data) {
-    this.weatherData = data;
-    const sunsetTime = new Date(this.weatherData.sys.sunset * 1000);
-    this.weatherData.sunset_time = sunsetTime.toLocaleTimeString();
-    const currentDate = new Date();
-    this.weatherData.isDay = (currentDate.getTime() < sunsetTime.getTime());
-    this.weatherData.temp_celcius = (this.weatherData.main.temp - 273.15).toFixed(0);
-    this.weatherData.temp_min = (this.weatherData.main.temp_min - 273.15).toFixed(0);
-    this.weatherData.temp_max = (this.weatherData.main.temp_max - 273.15).toFixed(0);
-    this.weatherData.temp_feels_like = (this.weatherData.main.feels_like - 273.15).toFixed(0);
+    this.addScript(data.name);
 
-    console.log(this.weatherData);
+  }
 
+  addScript(cityName) {
+    const oldScript = document.querySelector('#weatherWidgetMoj');
+    if (oldScript) {
+      document.body.removeChild(oldScript);
+    }
+    const script = document.createElement('script');
+    script.innerHTML = 'window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];' +
+      'window.myWidgetParam.push({ id: 8, city_name: \'' + cityName + `', appid: 'ff1bc4683fc7325e9c57e586c20cc03e', lang: 'sr', units: 'metric', containerid: 'openweathermap-widget-8', });
+    (function () {
+      var script = document.createElement('script');
+      script.async = true;
+      script.charset = "utf-8";
+      script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();`;
+    script.id = 'weatherWidgetMoj'
+    document.body.appendChild(script);
   }
 
 }

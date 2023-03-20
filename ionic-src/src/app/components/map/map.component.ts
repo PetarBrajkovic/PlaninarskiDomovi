@@ -21,6 +21,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   @Input()
   mapForEdit = false;
 
+  @Input()
+  styleForMap = `height: 70vh; width: 50vw`;
+
   map: Map;
   @Output() coordinatesSelected = new EventEmitter<number[]>();
 
