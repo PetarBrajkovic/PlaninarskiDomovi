@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   @Select(AuthState.role) role$: Observable<null | Roles>;
 
   isAuthenticated: boolean
-  role: null | Roles
+  role?: Roles
 
   labelForNewUser = '';
 
@@ -33,6 +33,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.store.dispatch(new Logout());
+    this.backToHome();
   }
 
   backToHome() {
@@ -50,6 +51,10 @@ export class NavbarComponent implements OnInit {
 
   goToNewLodge() {
     window.location.href = '/new-lodge';
+  }
+
+  goToMyClub() {
+    this.navController.navigateForward('/my-club');
   }
 
 }

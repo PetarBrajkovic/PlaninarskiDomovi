@@ -69,7 +69,7 @@ export class EditLodgePage implements OnInit {
       website: form.value.website,
       numberOfBeds: form.value.numberOfBeds,
       description: form.value.description,
-      club: form.value.club._id,
+      club: form.value.club,
       coordinates: this.coordinates
     }
     updatedLodge.pictureUrl = this.uploadedFileUrl ? this.uploadedFileUrl : this.lodge.pictureUrl;

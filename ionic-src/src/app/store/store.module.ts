@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
             developmentMode: !environment.production,
         }),
         NgxsStoragePluginModule.forRoot({
-            key: ['auth.token', 'auth.role']
+            key: ['auth.token', 'auth.role', 'auth.userId']
         }),
         NgxsReduxDevtoolsPluginModule.forRoot(),
     ],

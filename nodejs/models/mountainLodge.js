@@ -48,6 +48,11 @@ module.exports.addMountainLodges = function (newMountainLodge, callback) {
     newMountainLodge.save(callback);
 }
 
+module.exports.getMountainLodgeByClubId = function (id, callback) {
+    const query = { club: id };
+    MountainLodge.find(query, callback);
+}
+
 module.exports.updateMountainLodge = function (id, mountainLodge, callback) {
     MountainLodge.findByIdAndUpdate(id, mountainLodge, callback);
 }

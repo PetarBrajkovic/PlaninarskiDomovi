@@ -1,0 +1,24 @@
+.responsive {
+    width: 100%;
+    height: auto;
+}
+
+.card {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+ion-card {
+    background-color: white;
+    color: black;
+}
+
+ion-list {
+    background-color: white;
+}
+
+ion-content {
+    --ion-background-color: #5F8D64
+}

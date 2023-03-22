@@ -20,3 +20,20 @@
     align-items: center;
     flex-direction: column;
 }
+
+
+.card {
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+ion-card {
+    background-color: white;
+    color: black;
+}
+
+ion-content {
+    --ion-background-color: #5F8D64
+}

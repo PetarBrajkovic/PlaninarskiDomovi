@@ -6,14 +6,18 @@
           <h2 style="cursor: pointer" class="ion-float-left ion-margin" (click)="backToHome()">
             Planinarski domovi
           </h2>
-          <label style="cursor: pointer" (click)=" goToNewLodge()" *ngIf="showNewClubAndLodgeButton()"
+          <ion-button fill="clear" style="cursor: pointer" (click)=" goToNewLodge()" *ngIf="showNewClubAndLodgeButton()"
             class="ion-float-left ion-margin-horizontal">
             Dodaj planinarski dom
-          </label>
-          <label style="cursor: pointer" [routerLink]="['/new-club']" *ngIf="showNewClubAndLodgeButton()"
-            class="ion-float-left ion-margin-horizontal">
+          </ion-button>
+          <ion-button fill="clear" style="cursor: pointer" [routerLink]="['/new-club']"
+            *ngIf="showNewClubAndLodgeButton()" class="ion-float-left ion-margin-horizontal">
             {{getLabel()}}
-          </label>
+          </ion-button>
+          <ion-button fill="clear" style="cursor: pointer" (click)="goToMyClub()" *ngIf="role === 'CLUB'"
+            class="ion-float-left ion-margin-horizontal">
+            Pogledaj klub
+          </ion-button>
         </ion-row>
       </ion-col>
       <ion-col>

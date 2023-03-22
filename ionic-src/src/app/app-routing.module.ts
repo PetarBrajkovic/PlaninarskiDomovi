@@ -35,7 +35,11 @@ const routes: Routes = [
   {
     path: 'edit-lodge/:lodgeId',
     loadChildren: () => import('./pages/edit-lodge/edit-lodge.module').then(m => m.EditLodgePageModule)
+  },  {
+    path: 'my-club',
+    loadChildren: () => import('./pages/my-club/my-club.module').then( m => m.MyClubPageModule)
   },
+
 
 ];
 

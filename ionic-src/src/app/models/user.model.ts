@@ -8,7 +8,7 @@ export class User {
 
 export enum Roles {
     'COMMISSION' = 'COMMISSION',
-    'MANAGER' = 'MANAGER',
+    'CLUB' = 'CLUB',
     'USER' = 'USER',
     'ADMIN' = 'ADMIN'
 }

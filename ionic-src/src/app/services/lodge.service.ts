@@ -25,4 +25,8 @@ export class LodgeService {
     const headerOptions = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post<any>('http://localhost:3000/lodge/add', lodge, { headers: headerOptions });
   }
+
+  getClubMountainLodges(id) {
+    return this.http.get<any>('http://localhost:3000/lodge/getLodgesByClub/' + id);
+  }
 }

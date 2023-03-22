@@ -13,7 +13,8 @@ router.post('/add', (req, res, next) => {
         description: req.body.description,
         club: req.body.club,
         pictureUrl: req.body.pictureUrl,
-        coordinates: req.body.coordinates
+        coordinates: req.body.coordinates,
+        club: req.body.club
     });
 
     MountainLodge.addMountainLodges(newMountainLodge, (err, user) => {
@@ -41,6 +42,16 @@ router.get('/getLodge/:id', (req, res) => {
             res.json({ success: false, data: err });
         } else {
             res.json({ success: true, data: mountainLodge });
+        }
+    });
+});
+
+router.get('/getLodgesByClub/:id', (req, res) => {
+    MountainLodge.getMountainLodgeByClubId(req.params.id, (err, mountainLodges) => {
+        if (err) {
+            res.json({ success: false, data: err });
+        } else {
+            res.json({ success: true, data: mountainLodges });
         }
     });
 });

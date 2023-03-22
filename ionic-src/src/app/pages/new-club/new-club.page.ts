@@ -26,7 +26,7 @@ export class NewClubPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       confirmPassword: ['', Validators.required],
-      role: ['MANAGER', Validators.required]
+      role: ['CLUB', Validators.required]
     });
     this.checkIfAdmin();
   }

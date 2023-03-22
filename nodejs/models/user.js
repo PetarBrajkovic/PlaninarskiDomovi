@@ -20,7 +20,7 @@ const UserSchema = mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['COMMISSION', 'MANAGER', 'USER', 'ADMIN']
+        enum: ['COMMISSION', 'CLUB', 'USER', 'ADMIN']
     }
 });
 
@@ -55,6 +55,6 @@ module.exports.comparePassword = function (canditatePassword, hash, callback) {
 }
 
 module.exports.getAllClubs = function (callback) {
-    const query = { role: 'MANAGER' };
+    const query = { role: 'CLUB' };
     User.find(query, callback);
 }

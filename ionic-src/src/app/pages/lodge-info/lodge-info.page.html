@@ -2,34 +2,39 @@
 
 <ion-content>
   <app-spinner *ngIf="loading"></app-spinner>
-  <ion-grid *ngIf="!loading">
-    <ion-row class="ion-justify-content-center ion-align-items-center ion-margin">
-      <h2 class=" ion-margin-end"> {{lodge.name}} </h2>
-      <ion-icon (click)="goToEdit()" style="cursor: pointer; margin-right: 20%;" name="create-outline"
-        size="large"></ion-icon>
-      <app-weather-widget [coordinates]="lodge?.coordinates" class="ion-float-right"></app-weather-widget>
-    </ion-row>
-    <ion-row class="ion-justify-content-center ion-align-items-end">
-      <ion-col offset="1" size="5">
-        <img style=" border-radius: 2%;" [src]="lodge.pictureUrl">
-      </ion-col>
-      <ion-col class="lodge-info" size="5">
-        <div style="padding: 8px;">Planina: {{lodge.mountain}}</div>
-        <div style="padding: 8px;">Visina: {{lodge.height}}m</div>
-        <div style="padding: 8px;">Opis: {{lodge.description}}</div>
-        <div style="padding: 8px;">Broj ležajeva: {{lodge.numberOfBeds}}</div>
-        <div style="padding: 8px;">Kontakt: {{lodge.contact}}</div>
-        <div style="padding: 8px;">Web sajt: {{lodge.website}}</div>
-        <ion-button (click)="openAvailabilityModal()">Proveri dostupnost</ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <div class='map-info'>
-    <app-map [styleForMap]="'height: 50vh; width: 70vw;'" [coordinates]="lodge?.coordinates"></app-map>
-  </div>
-  <div class="question-area">
-    <h3>Ako imate dodatna pitanja</h3>
-    <textarea style="width: 60%; height: 100%;"></textarea>
-    <ion-button>Pošalji</ion-button>
-  </div>
+  <ion-card class="ion-padding card">
+    <ion-grid *ngIf="!loading">
+
+      <ion-row class="ion-justify-content-center ion-align-items-center ion-margin">
+        <h2 class="ion-margin-end"> {{lodge.name}} </h2>
+        <ion-icon *ngIf="showEditForRender" (click)="goToEdit()" style="cursor: pointer;" name="create-outline"
+          size="large">
+        </ion-icon>
+        <app-weather-widget style="margin-left: 20%;" [coordinates]="lodge?.coordinates"
+          class="ion-float-right"></app-weather-widget>
+      </ion-row>
+      <ion-row class="ion-justify-content-center ion-align-items-end">
+        <ion-col size="6">
+          <img style=" border-radius: 2%;" [src]="lodge.pictureUrl">
+        </ion-col>
+        <ion-col class="lodge-info" size="6">
+          <div style="padding: 8px;">Planina: {{lodge.mountain}}</div>
+          <div style="padding: 8px;">Visina: {{lodge.height}}m</div>
+          <div style="padding: 8px;">Opis: {{lodge.description}}</div>
+          <div style="padding: 8px;">Broj ležajeva: {{lodge.numberOfBeds}}</div>
+          <div style="padding: 8px;">Kontakt: {{lodge.contact}}</div>
+          <div style="padding: 8px;">Web sajt: {{lodge.website}}</div>
+          <ion-button (click)="openAvailabilityModal()">Proveri dostupnost</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <div class='map-info'>
+      <app-map [styleForMap]="'height: 50vh; width: 70vw;'" [coordinates]="lodge?.coordinates"></app-map>
+    </div>
+    <div class="question-area">
+      <h3>Ako imate dodatna pitanja</h3>
+      <textarea style="width: 60%; height: 100%; margin-bottom: 5px;"></textarea>
+      <ion-button>Pošalji</ion-button>
+    </div>
+  </ion-card>
 </ion-content>
