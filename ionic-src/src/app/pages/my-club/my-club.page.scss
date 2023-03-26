@@ -1,6 +1,7 @@
 .responsive {
     width: 100%;
     height: auto;
+    border-radius: 5%;
 }
 
 .card {
@@ -21,4 +22,8 @@ ion-list {
 
 ion-content {
     --ion-background-color: #5F8D64
+}
+
+div[slot="content"] {
+    background: white
 }

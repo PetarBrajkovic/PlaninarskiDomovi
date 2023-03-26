@@ -16,7 +16,8 @@
     "jsonwebtoken": "*",
     "mongoose": "*",
     "passport": "*",
-    "passport-jwt": "*"
+    "passport-jwt": "*",
+    "route-cache": "^0.5.0"
   },
   "author": "Petar Brajkovic",
   "license": "ISC",

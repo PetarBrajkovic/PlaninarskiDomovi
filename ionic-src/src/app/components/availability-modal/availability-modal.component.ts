@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { Store } from '@ngxs/store';
-import { Reservation } from 'src/app/models/reservation.mode';
+import { Reservation, ReservationStatus } from 'src/app/models/reservation.mode';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { AuthState } from 'src/app/store/auth/auth.state';
 
@@ -20,9 +21,10 @@ export class AvailabilityModalComponent implements OnInit {
   endDate;
   selectedDates = null;
   numberOfGuests: number;
+  availability = null;
 
   constructor(private modalCtrl: ModalController, private reservationService: ReservationService,
-    private store: Store) { }
+    private store: Store, private changeDetectorRef: ChangeDetectorRef, private router: Router) { }
 
   ngOnInit() { }
 
@@ -69,6 +71,14 @@ export class AvailabilityModalComponent implements OnInit {
   }
 
   checkAvailability() {
+    this.reservationService.checkLodgeAvailability(this.mountainLodgeId, this.startDate, this.endDate)
+      .subscribe(data => {
+        this.availability = data.data.availability;
+        this.changeDetectorRef.markForCheck();
+      });
+  }
+
+  makeNewReservation() {
     const reservation: Reservation = {
       _id: null,
       mountainLodgeId: this.mountainLodgeId,
@@ -76,10 +86,15 @@ export class AvailabilityModalComponent implements OnInit {
       numberOfNights: this.getNumberOfNights(this.startDate, this.endDate),
       numberOfGuests: this.numberOfGuests,
       startDate: this.startDate,
-      endDate: this.endDate
+      endDate: this.endDate,
+      status: ReservationStatus.DEFAULT
     }
     this.reservationService.createNewReservation(reservation).subscribe(data => {
-      console.log(data);
+      if (data && data.success) {
+        alert('Uspešna rezervacija');
+        this.modalCtrl.dismiss();
+        this.router.navigate(['/']);
+      }
     });
   }
 

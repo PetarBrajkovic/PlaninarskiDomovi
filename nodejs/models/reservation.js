@@ -21,6 +21,10 @@ const ReservationSchema = new mongoose.Schema({
     },
     endDate: {
         type: Date
+    },
+    status: {
+        type: String,
+        enum: ['DEFAULT', 'CONFIRMED', 'DENIED']
     }
 });
 
@@ -33,9 +37,33 @@ module.exports.getReservationById = function (id, callback) {
 }
 
 module.exports.getReservationsByMountainLodgeId = function (id, callback) {
-    Reservation.find({ mountainLodgeId: id }, callback);
+    Reservation.aggregate([
+        { $match: { 'mountainLodgeId': mongoose.Types.ObjectId(id) } },
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'userId',
+                foreignField: '_id',
+                as: 'user',
+            },
+        }], callback)
 }
 
 module.exports.addReservation = function (newReservation, callback) {
     newReservation.save(callback);
+}
+
+module.exports.checkLodgeAvailability = function (lodgeId, startDate, endDate, callback) {
+    const query = {
+        $and: [
+            { 'mountainLodgeId': lodgeId },
+            { 'startDate': { $lt: endDate } },
+            { 'endDate': { $gt: startDate } }
+        ]
+    };
+    Reservation.find(query, callback);
+}
+
+module.exports.updateReservation = function (id, reservation, callback) {
+    Reservation.findByIdAndUpdate(id, reservation, callback);
 }

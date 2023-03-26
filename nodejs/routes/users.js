@@ -74,4 +74,14 @@ router.get('/clubs', (req, res) => {
     });
 });
 
+router.get('userById/:id', (req, res) => {
+    User.getAllClubs((err, user) => {
+        if (err) {
+            res.json({ success: false, data: err });
+        } else {
+            res.json({ success: true, data: user });
+        }
+    });
+});
+
 module.exports = router;

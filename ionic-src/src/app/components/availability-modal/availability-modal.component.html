@@ -34,6 +34,21 @@
         <ion-row class="ion-margin-top">
           <ion-button (click)="checkAvailability()">Proveri dostupnost</ion-button>
         </ion-row>
+        <ion-row *ngIf="availability !== null">
+          <ng-container *ngIf="availability === true">
+            <div style="margin-top: 30px; margin-bottom: 10px;">
+              Datum koji ste izabrali je dostupan, da li želite da rezervišete ovaj termin
+            </div>
+            <ion-button (click)="makeNewReservation()">REZERVIŠI</ion-button>
+            <ion-button (click)="availability = null">ODUSTANI</ion-button>
+          </ng-container>
+          <ng-container *ngIf="availability === false">
+            <div style="margin-top: 30px; margin-bottom: 10px;">
+              Datum koji ste izabrali trenutni nije dostupan, molimo Vas izaberite drugi termin
+            </div>
+            <ion-button (click)="availability = null">U REDU</ion-button>
+          </ng-container>
+        </ion-row>
       </ion-col>
     </ion-row>
   </ion-grid>

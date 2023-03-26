@@ -6,4 +6,11 @@ export class Reservation {
     numberOfGuests: number
     startDate: Date
     endDate: Date
+    status: ReservationStatus
+}
+
+export enum ReservationStatus {
+    'DEFAULT' = 'DEFAULT',
+    'CONFIRMED' = 'CONFIRMED',
+    'DENIED' = 'DENIED'
 }
